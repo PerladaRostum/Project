@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Traffic Light Simulator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            background-image: linear-gradient(#4cc191, #4188b1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        #traffic-signal {
+            border: 8px solid black;
+            padding: 10px 3px;
+            width: 70px;
+            background: black;
+            border-radius: 12px;
+        }
+        #traffic-signal > div {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+            margin-top: 5px;
+            border-radius: 50%;
+        }
+        #line1 {
+            height: 200px;
+            width: 10px;
+            background: #000;
+        }
+        #line2 {
+            height: 10px;
+            width: 70px;
+            background: #000;
+        }
+        .green {
+            background-color: #06ff06;
+            box-shadow: 0 0 60px 10px #06ff06;
+        }
+        .yellow {
+            background-color: #eeff03;
+            box-shadow: 0 0 60px 10px #eeff03;
+        }
+        .red {
+            background-color: #ff3822;
+            box-shadow: 0 0 60px 10px #ff3822;
+        }
+        .gray {
+            background-color: #666;
+            box-shadow: none;
+        }
+        button {
+            margin-top: 5px;
+            background-color: darkblue;
+            line-height: 25px;
+            border-radius: 10px;
+            color: white;
+            border: none;
+            width: 80px;
+        }
+        button:active {
+            transform: scale(0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="topcover"></div>
+    <div id="traffic-signal">
+        <div class="light red"></div>
+        <div class="light yellow"></div>
+        <div class="light green"></div>
+    </div>
+    <div id="line1"></div>
+    <div id="line2"></div>
+
+    <button onclick="changeLightColor()">Stimulation</button>
+
+    <script>
+        let currentLight = 0; // 0 for red, 1 for yellow, 2 for green
+
+        function changeLightColor() {
+
+            const lights = document.querySelectorAll('.light');
+
+            currentLight = (currentLight + 1) % 3;
+            // Set the appropriate light
+            for (let i = 0; i < lights.length; i++) {
+                if (i === currentLight) {
+                    lights[i].classList.remove('gray');
+                    lights[i].classList.add(getLightClass(i));
+                } else {
+                    lights[i].classList.remove(getLightClass(i));
+                    lights[i].classList.add('gray');
+                }
+            }
+        }
+
+        function getLightClass(lightNumber) {
+            switch (lightNumber) {
+                case 0:
+                    return 'red';
+                case 1:
+                    return 'yellow';
+                case 2:
+                    return 'green';
+                default:
+                    return '';
+            }
+        }
+    </script>
+</body>
+</html>
